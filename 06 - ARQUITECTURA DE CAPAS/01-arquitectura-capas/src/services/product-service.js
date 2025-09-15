@@ -1,3 +1,4 @@
+import { ProductResponseDTO } from "../dtos/product-res-dto.js";
 import { productRepository } from "../repositories/product-repository.js";
 import CustomError from "../utils/custom-error.js";
 
@@ -8,7 +9,8 @@ class ProductService {
 
   getAll = async () => {
     try {
-      return await this.repository.getAll();
+      const products = await this.repository.getAll();
+      return products.map((p) => new ProductResponseDTO(p))
     } catch (error) {
       throw new Error(error);
     }
@@ -18,7 +20,7 @@ class ProductService {
     try {
       const product = await this.repository.getById(id);
       if (!product) throw new CustomError("Product not found", 404);
-      return product;
+      return new ProductResponseDTO(product);
     } catch (error) {
       throw error;
     }

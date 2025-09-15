@@ -1,3 +1,4 @@
+import { ProductRequestDTO } from "../dtos/product-req-dto.js";
 import { productService } from "../services/product-service.js";
 
 class ProductController {
@@ -26,7 +27,7 @@ class ProductController {
 
   create = async (req, res, next) => {
     try {
-      const body = req.body;
+      const body = new ProductRequestDTO(req.body)
       const product = await this.service.create(body);
       res.status(201).json(product);
     } catch (error) {
