@@ -12,6 +12,7 @@ const OrderSchema = new Schema({
   negocio: { type: Schema.Types.ObjectId, ref: "business", required: true },
   usuario: { type: Schema.Types.ObjectId, ref: "user", required: true },
   productos: [OrderProductSchema],
+  precioTotal: { type: Number, required: true },
 });
 
 export const OrderModel = model("order", OrderSchema);
